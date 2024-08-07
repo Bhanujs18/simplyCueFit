@@ -46,8 +46,11 @@ const Challenges: React.FC<ChallengesProps> = (props) => {
     const [data , setData] = useState<Challenge[]>(parsedData ? parsedData : [])
 
     const handleChallenge = () => {
+      if(!challenge.name || !challenge.description || !challenge.startDate
+        || !challenge.endDate || !challenge.status){
+          return;
+        }
      setData((prev)=>[...prev , challenge])    
-     localStorage.setItem("simplyFit" , JSON.stringify(data));
     }
 
     const filterData = () => {
@@ -66,6 +69,12 @@ const Challenges: React.FC<ChallengesProps> = (props) => {
     useEffect(()=>{
         filterData();
     },[filter])
+
+    useEffect(()=>{
+      console.log(data)
+      localStorage.setItem("simplyFit" , JSON.stringify(data));
+    },[data])
+
   return (
     <div className={styles.section}>
   {data ? 
@@ -78,9 +87,9 @@ const Challenges: React.FC<ChallengesProps> = (props) => {
          </div>
 
          <div className={styles.challenges}>
-            {data && data?.map((cur)=>{
+            {data && data?.map((cur , index)=>{
                 return(
-                    <div>
+                    <div key={index}>
                         <Cards data={cur}/>
                     </div>
                 )

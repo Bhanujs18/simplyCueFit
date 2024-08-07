@@ -4,11 +4,15 @@ import { Line } from 'rc-progress';
 import { SlCalender } from "react-icons/sl";
 
 const Cards = (props: any) => {
-    const { name, description, frequency, startDate, endDate, status, Completed } = props.data;
+    const { name, description, frequency, startDate, endDate, status, Completed, id } = props.data;
+    const localStorageData:any = localStorage.getItem('simplyFit');
+    const currentData = JSON.parse(localStorageData);
+
     const [bgColor, setBgColor] = useState("Green");
     const [daysDifference, setDaysDifference] = useState<number | null>(null);
-    const [comp , setComp] = useState(Completed);
+    const [comp , setComp] = useState<number>(0);
     const [taskDone , setTaskDone] = useState(false)
+    const [isCompleted , setIsCompleted] = useState("InProgress");
     useEffect(() => {
         // Set background color based on status
         if (status === "Completed") {
@@ -21,7 +25,6 @@ const Cards = (props: any) => {
             setBgColor("black");
         }
 
-        // Calculate the difference in days between startDate and endDate
         if (startDate && endDate) {
             const start = new Date(startDate);
             const end = new Date(endDate);
@@ -36,14 +39,24 @@ const Cards = (props: any) => {
         setTaskDone(true);
     }
 
+    useEffect(()=>{
+        
+        console.log(currentData[id-1].Completed)
+        currentData[id-1].Completed = comp;
+        console.log( currentData[id-1].Completed=comp)
+        localStorage.setItem("simplyFit" , JSON.stringify(currentData));
+        
+    },[comp])
+
     return (
         <div className={styles.card}>
-            <h1>{name}</h1>
-            <h2 id={styles.description}>{description}</h2>
             <div className={styles.rightUpper}>
             <p id={styles.frequency}>{frequency}</p>
             <p style={{ background: `${bgColor}` }} id={styles.status}>{status}</p>
             </div>
+            <h1>{name}</h1>
+            <h2 id={styles.description}>{description}</h2>
+            
             <h2 id={styles.tasks}>Tasks</h2>
             <ul>
                 <li>Running</li>
@@ -55,8 +68,8 @@ const Cards = (props: any) => {
             <p id={styles.Completed}>Completed : <span style={{ color: `${bgColor}` }}>{comp}&nbsp;days</span></p>
             <p id={styles.daysDifference}>Duration: {daysDifference} days</p> {/* Display the calculated difference */}
             <Line percent={daysDifference ? (comp/daysDifference)*100 : 0} strokeWidth={4} strokeColor="black" trailWidth={10} />
-            {taskDone? <div id={styles.completed}>Updated!</div> :
-            <div className={styles.today}><h2>Today's?</h2><button onClick={()=>updateCompleted(1)}>Yes</button><button onClick={()=>updateCompleted(0)}>No</button></div>}
+            {/* {taskDone? <div id={styles.completed}>{daysDifference === Completed ? <h1 className={styles.inProgress} style={{background:'#5DBD4A'}}>Completed</h1> : <h1 className={styles.inProgress} style={{background:'#0D86D3'}}>InProgress</h1>}</div> : */}
+            <div className={styles.today}><h2>Today's?</h2><button onClick={()=>updateCompleted(1)}>Yes</button><button onClick={()=>updateCompleted(0)}>No</button></div>
         </div>
     );
 }
