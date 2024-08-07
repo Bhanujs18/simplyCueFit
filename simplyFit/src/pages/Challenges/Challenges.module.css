@@ -1,0 +1,132 @@
+.section{
+    padding-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 2rem;
+
+}
+
+.filter{
+    display: flex;
+    gap: 2rem;
+    button{
+        border: none;
+        padding: 0.4rem 1rem;
+        width: 8rem;
+        border-radius: 9px;
+        background-color: transparent;
+        border: 2px black solid;
+        cursor: pointer;
+    }
+    overflow-x: scroll;
+}
+#bg{
+    background-color: black;
+    color: white;
+}
+
+.challenges{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.modalDiv{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    z-index: 999;
+   width: 100%;
+   height: 100%;
+   background-color: rgb(0, 0, 0 , 0.6);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.addChallenge{
+    background-color: white;
+    padding: 1rem;
+    border-radius: 19px;
+    width: 50%;
+    justify-content: space-between;
+    height: 50%;
+    position: relative !important;
+    display: flex;
+flex-direction: column;
+h1{
+    margin: 0%;
+}
+@media (max-width : 677px) {
+    display: flex;
+    width: 90% !important;
+   }
+}
+
+.content{
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    width: 90%;
+}
+
+.nameFreq{
+    display: flex;
+    gap: 2rem;
+    input{
+        width: 50%;
+        padding: 0.3rem 0.5rem;
+        border-radius: 9px;
+        border: 1px grey solid;
+    }
+    select{
+        width: 50%;
+        border-radius: 9px;
+        padding: 0.3rem;
+    }
+}
+
+#textarea{
+    resize: none;
+    padding: 0.3rem;
+    border-radius: 9px;
+}
+
+#close{
+    position: absolute !important;
+   right: 3%;
+   background-color: transparent;
+   border: none;
+   color: rgb(235, 11, 11);
+   font-weight: 600;
+   font-size: 1rem;
+   cursor: pointer;
+   top :5%
+}
+
+#add{
+    background-color: transparent;
+    border: none;
+    width: 10rem;
+    background-color: black;
+    color: white;
+    padding: 0.5rem 0.2rem;
+    border-radius: 9px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.dates{
+    width: 100%;
+   display: flex;
+   justify-content: space-between; 
+   @media (max-width : 677px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+   }
+}
